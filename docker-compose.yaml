@@ -1,0 +1,22 @@
+version: '3.5'
+
+services:
+  postgres:
+    image: postgres:9.6.23-stretch
+    restart: always
+    ports:
+      - "2345:5432"
+    environment:
+      - POSTGRES_PASSWORD_FILE=/run/secrets/postgres_secret
+    volumes:
+      - postgres_volume:/var/lib/postgresql/data
+    secrets:
+      - postgres_secret
+
+secrets:
+  postgres_secret:
+    file: postgres_pw.txt
+
+volumes:
+  postgres_volume:
+
