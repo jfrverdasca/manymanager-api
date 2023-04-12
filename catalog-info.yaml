@@ -1,0 +1,51 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: manymanager-api
+  description: ManyManager backend API
+spec:
+  type: openapi
+  lifecycle: development
+  owner: jfrverdasca
+  system: manymanager-backend
+  definition: |
+    openapi: "3.0.0"
+    info:
+      version: 1.0.0
+      title: ManyManager API
+    servers:
+      - url: http://localhost:8000
+    paths:
+      /api/auth/token/:
+        post:
+          description: "Log the user in the system"
+          responses:
+            200:
+              description: "API access tokens"
+              content:
+                application/json:
+                  schema:
+                    type: object
+                    properties:
+                      access_token:
+                        type: string
+                      refresh_token:
+                        type: string
+                      expires:
+                        type: number
+    requestBody:
+      content:
+        'application/json':
+          schema:
+            type: object
+            properties:
+              username:
+                description: username
+                type: string
+              password:
+                description: password
+                type: string
+            required:
+              - username
+              - password
+
