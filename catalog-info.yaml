@@ -1,51 +1,23 @@
 apiVersion: backstage.io/v1alpha1
 kind: API
 metadata:
-  name: manymanager-api
-  description: ManyManager backend API
+  name: artist-api
+  description: Retrieve artist details
 spec:
   type: openapi
-  lifecycle: development
-  owner: jfrverdasca
-  system: manymanager-backend
+  lifecycle: production
+  owner: artist-relations-team
+  system: artist-engagement-portal
   definition: |
     openapi: "3.0.0"
     info:
       version: 1.0.0
-      title: ManyManager API
+      title: Artist API
+      license:
+        name: MIT
     servers:
-      - url: http://localhost:8000
+      - url: http://artist.spotify.net/v1
     paths:
-      /api/auth/token/:
-        post:
-          description: "Log the user in the system"
-          responses:
-            200:
-              description: "API access tokens"
-              content:
-                application/json:
-                  schema:
-                    type: object
-                    properties:
-                      access_token:
-                        type: string
-                      refresh_token:
-                        type: string
-                      expires:
-                        type: number
-    requestBody:
-      content:
-        'application/json':
-          schema:
-            type: object
-            properties:
-              username:
-                description: username
-                type: string
-              password:
-                description: password
-                type: string
-            required:
-              - username
-              - password
-
+      /artists:
+        get:
+          summary: List all artists
